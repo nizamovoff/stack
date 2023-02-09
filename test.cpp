@@ -1,5 +1,4 @@
 #include "stack.h"
-#include <stack>
 #include <assert.h>
 
 int main() {
