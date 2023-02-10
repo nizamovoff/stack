@@ -10,6 +10,10 @@ public:
     ~Stack() {
         delete[] array_;
     }
+    
+    ~Stack() {
+        delete[] array_;
+    }
 
     Stack(const Stack& other) {
         Copy(other);
