@@ -5,16 +5,14 @@
 template<typename ValueType>
 class Stack {
 public:
-    explicit Stack() : size_(kDefaultSize), capacity_(kDefaultCapacity), array_(new ValueType[kDefaultCapacity]) {
-        AddMemory(kDefaultCapacity);
+    explicit Stack() : size_(kDefaultSize), capacity_(kDefaultCapacity), array_(new ValueType[kDefaultCapacity]) {}
+
+    ~Stack() {
+        delete[] array_;
     }
 
     Stack(const Stack& other) {
         Copy(other);
-    }
-
-    ~Stack() {
-        delete[] array_;
     }
 
     Stack& operator=(const Stack& other) {
