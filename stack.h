@@ -33,13 +33,14 @@ public:
 
 private:
     const size_t kDefaultSize = 0;
-    const size_t kDefaultCapacity = 1;
+    const size_t kDefaultCapacity = 0;
+    static const size_t kDoubleCapacity = -1;
 
     size_t size_ = kDefaultSize;
     size_t capacity_ = kDefaultCapacity;
     ValueType* array_ = nullptr;
 
-    void AddMemory(size_t new_capacity = 0);
+    void AddMemory(size_t new_capacity = kDoubleCapacity);
 
     void Copy(const Stack& other);
 
@@ -47,7 +48,7 @@ private:
 };
 
 template<typename ValueType>
-Stack<ValueType>::Stack() : size_(kDefaultSize), capacity_(kDefaultCapacity), array_(new ValueType[kDefaultCapacity]) {}
+Stack<ValueType>::Stack() : size_(kDefaultSize), capacity_(kDefaultCapacity), array_(nullptr) {}
 
 template<typename ValueType>
 Stack<ValueType>::~Stack() {
@@ -138,8 +139,8 @@ void Stack<ValueType>::Swap(Stack &other) {
 
 template<typename ValueType>
 void Stack<ValueType>::AddMemory(size_t new_capacity) {
-    if (new_capacity == 0) {
-        new_capacity = capacity_ * 2;
+    if (new_capacity == kDoubleCapacity) {
+        new_capacity = (capacity_ == 0 ? 1 : capacity_ * 2);
     }
 
     ValueType *old_array = array_;
